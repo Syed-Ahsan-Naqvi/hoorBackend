@@ -1,0 +1,109 @@
+// general articles
+{
+    "articles": [
+        {
+            "author": "Author 88",
+            "title": "Sample Title 88 - Business Category",
+            "description": "This is a description for article 88 in the Business category.",
+            "url": "https://example.com/article-88",
+            "urlToImage": "https://picsum.photos/200?random=0.6457235465383021",
+            "category": "business"
+        },
+        {
+            "author": "Author 89",
+            "title": "Sample Title 89 - Business Category",
+            "description": "This is a description for article 89 in the Business category.",
+            "url": "https://example.com/article-89",
+            "urlToImage": "https://picsum.photos/200?random=0.6777017560621271",
+            "category": "business"
+        },
+        {
+            "author": "Author 90",
+            "title": "Sample Title 90 - Business Category",
+            "description": "This is a description for article 90 in the Business category.",
+            "url": "https://example.com/article-90",
+            "urlToImage": "https://picsum.photos/200?random=0.8129433614692954",
+            "category": "business"
+        },
+        {
+            "author": "Author 91",
+            "title": "Sample Title 91 - Business Category",
+            "description": "This is a description for article 91 in the Business category.",
+            "url": "https://example.com/article-91",
+            "urlToImage": "https://picsum.photos/200?random=0.5070006737480247",
+            "category": "business"
+        },
+        {
+            "author": "Author 92",
+            "title": "Sample Title 92 - Business Category",
+            "description": "This is a description for article 92 in the Business category.",
+            "url": "https://example.com/article-92",
+            "urlToImage": "https://picsum.photos/200?random=0.5008286655452252",
+            "category": "business"
+        },
+        {
+            "author": "Author 93",
+            "title": "Sample Title 93 - Business Category",
+            "description": "This is a description for article 93 in the Business category.",
+            "url": "https://example.com/article-93",
+            "urlToImage": "https://picsum.photos/200?random=0.09852765053155088",
+            "category": "business"
+        },
+        {
+            "author": "Author 94",
+            "title": "Sample Title 94 - Business Category",
+            "description": "This is a description for article 94 in the Business category.",
+            "url": "https://example.com/article-94",
+            "urlToImage": "https://picsum.photos/200?random=0.94693699089493",
+            "category": "business"
+        },
+        {
+            "author": "Author 95",
+            "title": "Sample Title 95 - Business Category",
+            "description": "This is a description for article 95 in the Business category.",
+            "url": "https://example.com/article-95",
+            "urlToImage": "https://picsum.photos/200?random=0.0068370850777519365",
+            "category": "business"
+        },
+        {
+            "author": "Author 96",
+            "title": "Sample Title 96 - Business Category",
+            "description": "This is a description for article 96 in the Business category.",
+            "url": "https://example.com/article-96",
+            "urlToImage": "https://picsum.photos/200?random=0.8422894241612354",
+            "category": "business"
+        },
+        {
+            "author": "Author 97",
+            "title": "Sample Title 97 - Business Category",
+            "description": "This is a description for article 97 in the Business category.",
+            "url": "https://example.com/article-97",
+            "urlToImage": "https://picsum.photos/200?random=0.20881284871394057",
+            "category": "business"
+        },
+        {
+            "author": "Author 98",
+            "title": "Sample Title 98 - Business Category",
+            "description": "This is a description for article 98 in the Business category.",
+            "url": "https://example.com/article-98",
+            "urlToImage": "https://picsum.photos/200?random=0.18909759223743916",
+            "category": "business"
+        },
+        {
+            "author": "Author 99",
+            "title": "Sample Title 99 - Business Category",
+            "description": "This is a description for article 99 in the Business category.",
+            "url": "https://example.com/article-99",
+            "urlToImage": "https://picsum.photos/200?random=0.21265232226319397",
+            "category": "business"
+        },
+        {
+            "author": "Author 100",
+            "title": "Sample Title 100 - Business Category",
+            "description": "This is a description for article 100 in the Business category.",
+            "url": "https://example.com/article-100",
+            "urlToImage": "https://picsum.photos/200?random=0.6629265856621807",
+            "category": "business"
+        }
+    ]
+}

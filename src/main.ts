@@ -8,9 +8,10 @@ dotenv.config(); // Load environment variables
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: "*",
+    origin: "https://prismatic-cat-a9dac9.netlify.app/",
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type,token",
+      credentials: true,
   });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT, () => {

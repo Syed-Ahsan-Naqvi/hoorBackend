@@ -18,11 +18,11 @@ import { WishModule } from "./wishlist/wish.module";
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "localhost",
+      host: "mysql.railway.internal",
       port: 3306,
       username: "root",
-      password: "123",
-      database: "ecommerce",
+      password: "lNIbqinetCjKvTVHZYhBAeGttsvUFThc",
+      database: "railway",
       entities: [Category, Product, SubCategory, User, Cart, Wish],
       synchronize: true,
     }),

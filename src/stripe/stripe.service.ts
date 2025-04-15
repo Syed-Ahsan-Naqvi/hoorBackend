@@ -30,8 +30,8 @@ export class StripeService {
       payment_method_types: ["card"],
       mode: "payment",
       line_items,
-      success_url: "https://hoorstudio.netlify.app//success",
-      cancel_url: "https://hoorstudio.netlify.app//cancel",
+      success_url: "https://hoorstudio.netlify.app/success",
+      cancel_url: "https://hoorstudio.netlify.app/cancel",
     });
 
     return { url: session.url, id: session.id };

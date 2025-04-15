@@ -22,6 +22,7 @@ const auth_entity_1 = require("./entities/auth.entity");
 const cart_entity_1 = require("./entities/cart.entity");
 const wish_entity_1 = require("./entities/wish.entity");
 const wish_module_1 = require("./wishlist/wish.module");
+const stripe_module_1 = require("./stripe/stripe.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,11 +31,11 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: "mysql",
-                host: "localhost",
-                port: 3306,
+                host: "crossover.proxy.rlwy.net",
+                port: 26567,
                 username: "root",
-                password: "123",
-                database: "ecommerce",
+                password: "lNIbqinetCjKvTVHZYhBAeGttsvUFThc",
+                database: "railway",
                 entities: [category_entity_1.Category, product_entity_1.Product, subCategory_entity_1.SubCategory, auth_entity_1.User, cart_entity_1.Cart, wish_entity_1.Wish],
                 synchronize: true,
             }),
@@ -43,6 +44,7 @@ exports.AppModule = AppModule = __decorate([
             product_module_1.ProductModule,
             cart_module_1.CartModule,
             wish_module_1.WishModule,
+            stripe_module_1.StripeModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

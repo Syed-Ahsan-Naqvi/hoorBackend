@@ -13,16 +13,17 @@ import { User } from "./entities/auth.entity";
 import { Cart } from "./entities/cart.entity";
 import { Wish } from "./entities/wish.entity";
 import { WishModule } from "./wishlist/wish.module";
+import { StripeModule } from "./stripe/stripe.module";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "localhost",
-      port: 3306,
+      host: "crossover.proxy.rlwy.net",
+      port: 26567,
       username: "root",
-      password: "123",
-      database: "ecommerce",
+      password: "lNIbqinetCjKvTVHZYhBAeGttsvUFThc",
+      database: "railway",
       entities: [Category, Product, SubCategory, User, Cart, Wish],
       synchronize: true,
     }),
@@ -32,8 +33,20 @@ import { WishModule } from "./wishlist/wish.module";
     ProductModule,
     CartModule,
     WishModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
+// type: "mysql",
+// host: "localhost",
+// port: 3306,
+// username: "root",
+// password: "123",
+// database: "ecommerce",
+// entities: [Category, Product, SubCategory, User, Cart, Wish],
+// synchronize: true,
+
+// mysql://root:lNIbqinetCjKvTVHZYhBAeGttsvUFThc@crossover.proxy.rlwy.net:26567/railway

@@ -9,9 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StripeService = void 0;
 const common_1 = require("@nestjs/common");
 const stripe_1 = require("stripe");
+const dotenv = require("dotenv");
+dotenv.config();
 let StripeService = class StripeService {
     constructor() {
-        this.stripe = new stripe_1.default("sk_test_51IIsbbByuPN8Gt69X3jzcru13eb0JyoHX8fWAfejgZnUuN3OveRen3z9u6dztILNFMva60RrVy7Ck7R7Chn4HGsa006Tf84W1L", {});
+        this.stripe = new stripe_1.default(`${process.env.STRIPE_SECRET_KEY}`, {
+            apiVersion: "2025-03-31.basil",
+        });
     }
     async createCheckoutSession(items) {
         const line_items = items.map((item) => ({
@@ -19,7 +23,6 @@ let StripeService = class StripeService {
                 currency: "pkr",
                 product_data: {
                     name: item.productTitle,
-                    images: [item.image],
                 },
                 unit_amount: item.price * 100,
             },

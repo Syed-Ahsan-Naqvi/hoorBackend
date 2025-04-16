@@ -1,12 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import Stripe from "stripe";
+import * as dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables
 
 @Injectable()
 export class StripeService {
-  private stripe = new Stripe(
-    "sk_test_51IIsbbByuPN8Gt69X3jzcru13eb0JyoHX8fWAfejgZnUuN3OveRen3z9u6dztILNFMva60RrVy7Ck7R7Chn4HGsa006Tf84W1L",
-    { apiVersion: "2025-03-31.basil" }
-  );
+  private stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {
+    apiVersion: "2025-03-31.basil",
+  });
 
   async createCheckoutSession(items: any[]) {
     const line_items = items.map((item) => ({

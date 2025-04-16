@@ -5,9 +5,7 @@ import Stripe from "stripe";
 export class StripeService {
   private stripe = new Stripe(
     "sk_test_51IIsbbByuPN8Gt69X3jzcru13eb0JyoHX8fWAfejgZnUuN3OveRen3z9u6dztILNFMva60RrVy7Ck7R7Chn4HGsa006Tf84W1L",
-    {
-      // Remove apiVersion to fix the error
-    }
+    { apiVersion: "2025-03-31.basil" }
   );
 
   async createCheckoutSession(items: any[]) {

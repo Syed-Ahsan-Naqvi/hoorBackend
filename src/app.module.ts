@@ -13,7 +13,7 @@ import { User } from "./entities/auth.entity";
 import { Cart } from "./entities/cart.entity";
 import { Wish } from "./entities/wish.entity";
 import { WishModule } from "./wishlist/wish.module";
-// import { StripeModule } from "./stripe/stripe.module";
+import { StripeModule } from "./stripe/stripe.module";
 
 @Module({
   imports: [
@@ -33,7 +33,7 @@ import { WishModule } from "./wishlist/wish.module";
     ProductModule,
     CartModule,
     WishModule,
-    // StripeModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

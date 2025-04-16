@@ -16,7 +16,7 @@ export class StripeService {
         currency: "pkr", // for Pakistan
         product_data: {
           name: item.productTitle,
-          images: [item.image],
+          // images: [item.image],
         },
         unit_amount: item.price * 100, // Stripe expects paisa
       },

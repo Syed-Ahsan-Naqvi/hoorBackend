@@ -18,24 +18,6 @@ let StripeService = class StripeService {
         });
     }
     async createCheckoutSession(items) {
-        const line_items = items.map((item) => ({
-            price_data: {
-                currency: "pkr",
-                product_data: {
-                    name: item.productTitle,
-                },
-                unit_amount: item.price * 100,
-            },
-            quantity: item.quantity,
-        }));
-        const session = await this.stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            mode: "payment",
-            line_items,
-            success_url: "https://hoorstudio.netlify.app/success",
-            cancel_url: "https://hoorstudio.netlify.app/cancel",
-        });
-        return { id: session.id };
     }
 };
 exports.StripeService = StripeService;

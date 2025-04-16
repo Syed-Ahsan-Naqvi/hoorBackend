@@ -22,7 +22,6 @@ const auth_entity_1 = require("./entities/auth.entity");
 const cart_entity_1 = require("./entities/cart.entity");
 const wish_entity_1 = require("./entities/wish.entity");
 const wish_module_1 = require("./wishlist/wish.module");
-const stripe_module_1 = require("./stripe/stripe.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,7 +43,6 @@ exports.AppModule = AppModule = __decorate([
             product_module_1.ProductModule,
             cart_module_1.CartModule,
             wish_module_1.WishModule,
-            stripe_module_1.StripeModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -1,8 +1,5 @@
-// src/stripe/stripe.service.ts
 import { Injectable } from "@nestjs/common";
 import Stripe from "stripe";
-// import * as dotenv from "dotenv";
-// dotenv.config();
 
 @Injectable()
 export class StripeService {
@@ -34,6 +31,7 @@ export class StripeService {
       cancel_url: "https://hoorstudio.netlify.app/cancel",
     });
 
-    return { url: session.url, id: session.id };
+    // return { url: session.url, id: session.id };
+    return { id: session.id };
   }
 }

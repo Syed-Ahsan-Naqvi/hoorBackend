@@ -29,10 +29,10 @@ let StripeService = class StripeService {
             payment_method_types: ["card"],
             mode: "payment",
             line_items,
-            success_url: "http://localhost:3001/success",
-            cancel_url: "http://localhost:3001/cancel",
+            success_url: "https://hoorstudio.netlify.app/success",
+            cancel_url: "https://hoorstudio.netlify.app/cancel",
         });
-        return { url: session.url, id: session.id };
+        return { id: session.id };
     }
 };
 exports.StripeService = StripeService;

@@ -28,8 +28,10 @@ export class StripeService {
       payment_method_types: ["card"],
       mode: "payment",
       line_items,
-      success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: "http://localhost:3000/cancel",
+      success_url: `https://hoorstudio.netlify.app/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: "https://hoorstudio.netlify.app/cancel",
+      // success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
+      // cancel_url: "http://localhost:3000/cancel",
       billing_address_collection: "required", // This forces Stripe to ask for the billing address
     });
 

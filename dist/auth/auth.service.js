@@ -24,6 +24,31 @@ let AuthService = class AuthService {
     constructor(authRepository) {
         this.authRepository = authRepository;
     }
+    async checkValidity(request) {
+        try {
+            const user = request.user;
+            if (!user) {
+                return {
+                    success: false,
+                    message: "User not found",
+                };
+            }
+            else {
+                return {
+                    success: true,
+                    message: "User found",
+                    data: user,
+                };
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                message: "Failed to fetch auth data",
+                error: error.message,
+            };
+        }
+    }
     async getAuthData(req) {
         try {
             const userRole = req.user?.role;

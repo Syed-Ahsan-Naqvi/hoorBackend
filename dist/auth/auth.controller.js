@@ -20,6 +20,9 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
+    async checkValidity(request) {
+        return this.authService.checkValidity(request);
+    }
     async getAuthData(request) {
         return this.authService.getAuthData(request);
     }
@@ -37,6 +40,13 @@ let AuthController = class AuthController {
     }
 };
 exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Get)("/check-validity"),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "checkValidity", null);
 __decorate([
     (0, common_1.Get)("/getAllUsers"),
     __param(0, (0, common_1.Req)()),

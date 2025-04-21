@@ -31,6 +31,9 @@ let CartController = class CartController {
     async deleteCartData(request, id) {
         return this.cartService.deleteCartData(request, id);
     }
+    async deleteAllCart(request) {
+        return this.cartService.deleteAllCart(request);
+    }
     async updateCart(request, id, data) {
         return this.cartService.updateCart(request, id, data);
     }
@@ -66,6 +69,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "deleteCartData", null);
+__decorate([
+    (0, common_1.Delete)("/deleteAllCart"),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CartController.prototype, "deleteAllCart", null);
 __decorate([
     (0, common_1.Put)("/updateCart/:id"),
     __param(0, (0, common_1.Req)()),

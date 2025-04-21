@@ -18,6 +18,37 @@ let StripeService = class StripeService {
         });
     }
     async createCheckoutSession(items) {
+        console.log("Response Data", items);
+        const line_items = items.map((item) => ({
+            price_data: {
+                currency: "pkr",
+                product_data: {
+                    name: item.productTitle,
+                    images: [item.image],
+                },
+                unit_amount: item.price * 100,
+            },
+            quantity: item.quantity,
+        }));
+        const session = await this.stripe.checkout.sessions.create({
+            payment_method_types: ["card"],
+            mode: "payment",
+            line_items,
+            success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: "http://localhost:3000/cancel",
+            billing_address_collection: "required",
+        });
+        return { url: session.url, id: session.id, session: session };
+    }
+    async verifySession(sessionId) {
+        const session = await this.stripe.checkout.sessions.retrieve(sessionId);
+        const lineItems = await this.stripe.checkout.sessions.listLineItems(sessionId, {
+            expand: ["data.price.product"],
+        });
+        return {
+            session,
+            lineItems,
+        };
     }
 };
 exports.StripeService = StripeService;

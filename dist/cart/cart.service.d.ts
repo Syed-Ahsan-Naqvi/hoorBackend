@@ -52,6 +52,15 @@ export declare class CartService {
         message: string;
         error: any;
     }>;
+    deleteAllCart(request: any): Promise<{
+        success: boolean;
+        message: string;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+    }>;
     updateCart(request: any, id: any, data: any): Promise<{
         success: boolean;
         message: string;

@@ -14,6 +14,8 @@ import { Cart } from "./entities/cart.entity";
 import { Wish } from "./entities/wish.entity";
 import { WishModule } from "./wishlist/wish.module";
 import { StripeModule } from "./stripe/stripe.module";
+import { OrderModule } from "./order/order.module";
+import { Order } from "./entities/order.entity";
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { StripeModule } from "./stripe/stripe.module";
       username: "root",
       password: "lNIbqinetCjKvTVHZYhBAeGttsvUFThc",
       database: "railway",
-      entities: [Category, Product, SubCategory, User, Cart, Wish],
+      entities: [Category, Product, SubCategory, User, Cart, Wish, Order],
       synchronize: true,
     }),
     // NotesModule,
@@ -34,6 +36,7 @@ import { StripeModule } from "./stripe/stripe.module";
     CartModule,
     WishModule,
     StripeModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

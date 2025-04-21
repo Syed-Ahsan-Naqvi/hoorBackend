@@ -3,6 +3,22 @@ import { CreateUserDto, LoginUserDto } from "src/dtos/auth.dto";
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
+    checkValidity(request: any): Promise<{
+        success: boolean;
+        message: string;
+        data?: undefined;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        data: any;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+        data?: undefined;
+    }>;
     getAuthData(request: any): Promise<{
         success: boolean;
         message: string;

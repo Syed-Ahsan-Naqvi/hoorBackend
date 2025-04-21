@@ -14,6 +14,30 @@ export class AuthService {
     private authRepository: Repository<User>
   ) {}
 
+  async checkValidity(request: any) {
+    try {
+      const user = request.user;
+      if (!user) {
+        return {
+          success: false,
+          message: "User not found",
+        };
+      } else {
+        return {
+          success: true,
+          message: "User found",
+          data: user,
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: "Failed to fetch auth data",
+        error: error.message,
+      };
+    }
+  }
+
   // Getting All Data From Auth
   async getAuthData(req: any) {
     try {

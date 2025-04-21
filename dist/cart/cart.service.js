@@ -118,6 +118,24 @@ let CartService = class CartService {
             };
         }
     }
+    async deleteAllCart(request) {
+        try {
+            const userId = request?.user?.id;
+            if (!userId) {
+                return { success: false, message: "Unauthorized user" };
+            }
+            await this.cartRepository.delete({ userId });
+            return { success: true, message: "All Products Removed successfully" };
+        }
+        catch (error) {
+            console.error("Error removing all products:", error);
+            return {
+                success: false,
+                message: "Failed to remove all products",
+                error: error.message,
+            };
+        }
+    }
     async updateCart(request, id, data) {
         try {
             const cartData = await this.cartRepository.find({

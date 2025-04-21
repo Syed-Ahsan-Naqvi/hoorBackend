@@ -6,26 +6,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthModule = void 0;
+exports.OrderModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_controller_1 = require("./auth.controller");
-const auth_service_1 = require("./auth.service");
-const typeorm_1 = require("@nestjs/typeorm");
-const auth_entity_1 = require("../entities/auth.entity");
+const order_controller_1 = require("./order.controller");
+const order_service_1 = require("./order.service");
 const authFetchUserData_middleware_1 = require("../middlewares/authFetchUserData.middleware");
-let AuthModule = class AuthModule {
+const order_entity_1 = require("../entities/order.entity");
+const typeorm_1 = require("@nestjs/typeorm");
+let OrderModule = class OrderModule {
     configure(consumer) {
         consumer
             .apply(authFetchUserData_middleware_1.LoggerMiddleware)
-            .forRoutes("/api/auth/getAllUsers", "/api/auth/deleteUser", "/api/auth/updateUser", "/api/auth/check-validity");
+            .forRoutes("/api/order/getAllOrders", "/api/order/createOrder");
     }
 };
-exports.AuthModule = AuthModule;
-exports.AuthModule = AuthModule = __decorate([
+exports.OrderModule = OrderModule;
+exports.OrderModule = OrderModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([auth_entity_1.User])],
-        controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order])],
+        controllers: [order_controller_1.OrderController],
+        providers: [order_service_1.OrderService],
     })
-], AuthModule);
-//# sourceMappingURL=auth.module.js.map
+], OrderModule);
+//# sourceMappingURL=order.module.js.map

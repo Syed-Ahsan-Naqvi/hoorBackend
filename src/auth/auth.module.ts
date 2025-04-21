@@ -17,7 +17,8 @@ export class AuthModule implements NestModule {
       .forRoutes(
         "/api/auth/getAllUsers",
         "/api/auth/deleteUser",
-        "/api/auth/updateUser"
+        "/api/auth/updateUser",
+        "/api/auth/check-validity"
       );
   }
 }

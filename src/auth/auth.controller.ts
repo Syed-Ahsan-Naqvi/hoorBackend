@@ -16,6 +16,11 @@ import { CreateUserDto, LoginUserDto } from "src/dtos/auth.dto";
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Get("/check-validity")
+  async checkValidity(@Req() request: any) {
+    return this.authService.checkValidity(request);
+  }
+
   @Get("/getAllUsers")
   async getAuthData(@Req() request: any) {
     return this.authService.getAuthData(request);

@@ -12,37 +12,38 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StripeController = void 0;
+exports.OrderController = void 0;
 const common_1 = require("@nestjs/common");
-const stripe_service_1 = require("./stripe.service");
-let StripeController = class StripeController {
-    constructor(stripeService) {
-        this.stripeService = stripeService;
+const order_service_1 = require("./order.service");
+let OrderController = class OrderController {
+    constructor(orderService) {
+        this.orderService = orderService;
     }
-    async createSession(body) {
-        return this.stripeService.createCheckoutSession(body);
+    async getAllOrdersData(req) {
+        return this.orderService.getAllOrdersData(req);
     }
-    async verifySession(body) {
-        return this.stripeService.verifySession(body.sessionId);
+    async createOrder(req, body) {
+        return this.orderService.createOrder(req, body);
     }
 };
-exports.StripeController = StripeController;
+exports.OrderController = OrderController;
 __decorate([
-    (0, common_1.Post)("create-checkout-session"),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)("/getAllOrders"),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], StripeController.prototype, "createSession", null);
+], OrderController.prototype, "getAllOrdersData", null);
 __decorate([
-    (0, common_1.Post)("verify-session"),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)("/createOrder"),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], StripeController.prototype, "verifySession", null);
-exports.StripeController = StripeController = __decorate([
-    (0, common_1.Controller)("api/stripe"),
-    __metadata("design:paramtypes", [stripe_service_1.StripeService])
-], StripeController);
-//# sourceMappingURL=stripe.controller.js.map
+], OrderController.prototype, "createOrder", null);
+exports.OrderController = OrderController = __decorate([
+    (0, common_1.Controller)("/api/order"),
+    __metadata("design:paramtypes", [order_service_1.OrderService])
+], OrderController);
+//# sourceMappingURL=order.controller.js.map

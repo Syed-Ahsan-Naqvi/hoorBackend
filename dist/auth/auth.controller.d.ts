@@ -78,6 +78,39 @@ export declare class AuthController {
         error: any;
         data?: undefined;
     }>;
+    adminLogin(data: LoginUserDto, request: any): Promise<{
+        success: boolean;
+        message: string;
+        data?: undefined;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        data: {
+            token: string;
+            user: {
+                id: number;
+                name: string;
+                email: string;
+                role: string;
+            };
+        };
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+        data?: undefined;
+    }>;
+    adminDelete(request: any, data: any, id: any): Promise<{
+        success: boolean;
+        message: string;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+    }>;
     deleteUser(request: any, data: any): Promise<{
         success: boolean;
         message: string;
@@ -86,6 +119,25 @@ export declare class AuthController {
         success: boolean;
         message: string;
         error: any;
+    }>;
+    adminUpdate(request: any, data: any, id: any): Promise<{
+        success: boolean;
+        message: string;
+        data?: undefined;
+        token?: undefined;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        data: import("../entities/auth.entity").User;
+        token: string;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+        data?: undefined;
+        token?: undefined;
     }>;
     updateUser(request: any, data: any): Promise<{
         success: boolean;

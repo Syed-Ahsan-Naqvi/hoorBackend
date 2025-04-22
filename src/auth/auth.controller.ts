@@ -36,9 +36,32 @@ export class AuthController {
     return this.authService.login(data);
   }
 
+  @Post("/admin-login")
+  async adminLogin(@Body() data: LoginUserDto, @Req() request: any) {
+    return this.authService.adminLogin(data, request);
+  }
+
+  @Delete("/admin-delete/:id")
+  async adminDelete(
+    @Req() request: any,
+    @Body() data: any,
+    @Param("id") id: any
+  ) {
+    return this.authService.adminDelete(request, data, id);
+  }
+
   @Delete("/deleteUser")
   async deleteUser(@Req() request: any, @Body() data: any) {
     return this.authService.deleteUser(request, data);
+  }
+
+  @Put("/admin-update/:id")
+  async adminUpdate(
+    @Req() request: any,
+    @Body() data: any,
+    @Param("id") id: any
+  ) {
+    return this.authService.adminUpdate(request, data, id);
   }
 
   @Put("/updateUser")

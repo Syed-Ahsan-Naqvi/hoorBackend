@@ -55,6 +55,30 @@ export declare class AuthService {
         error: any;
         data?: undefined;
     }>;
+    adminLogin(data: any, request: any): Promise<{
+        success: boolean;
+        message: string;
+        data?: undefined;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        data: {
+            token: string;
+            user: {
+                id: number;
+                name: string;
+                email: string;
+                role: string;
+            };
+        };
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+        data?: undefined;
+    }>;
     login(data: LoginUserDto): Promise<{
         success: boolean;
         message: string;
@@ -88,7 +112,35 @@ export declare class AuthService {
         message: string;
         error: any;
     }>;
+    adminDelete(req: any, data: any, id: any): Promise<{
+        success: boolean;
+        message: string;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+    }>;
     updateUser(request: any, data: any): Promise<{
+        success: boolean;
+        message: string;
+        data?: undefined;
+        token?: undefined;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        data: User;
+        token: string;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: any;
+        data?: undefined;
+        token?: undefined;
+    }>;
+    adminUpdate(request: any, data: any, id: any): Promise<{
         success: boolean;
         message: string;
         data?: undefined;

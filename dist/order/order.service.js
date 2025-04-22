@@ -25,12 +25,20 @@ let OrderService = class OrderService {
     async getAllOrdersData(req) {
         try {
             const userId = req.user?.id;
+            const userRole = req.user?.role;
+            if (userRole === "admin") {
+                const allOrders = await this.orderRepository.find();
+                return {
+                    success: true,
+                    message: "All Orders List",
+                    data: allOrders,
+                };
+            }
             const userOrders = await this.orderRepository.find({
                 where: {
                     userId: (0, typeorm_3.Raw)((alias) => `JSON_UNQUOTE(JSON_EXTRACT(${alias}, '$.id')) = '${userId}'`),
                 },
             });
-            console.log(userOrders);
             return {
                 success: true,
                 message: "User's Orders List",

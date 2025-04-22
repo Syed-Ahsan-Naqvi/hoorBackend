@@ -15,6 +15,19 @@ export class OrderService {
     try {
       const userId = req.user?.id;
 
+      // Check if user is admin
+      const userRole = req.user?.role;
+      if (userRole === "admin") {
+        // Fetch all orders
+        const allOrders = await this.orderRepository.find();
+        return {
+          success: true,
+          message: "All Orders List",
+          data: allOrders,
+        };
+      }
+      // Fetch all orders
+
       const userOrders = await this.orderRepository.find({
         where: {
           userId: Raw(
@@ -23,8 +36,6 @@ export class OrderService {
           ),
         },
       });
-
-      console.log(userOrders);
 
       return {
         success: true,

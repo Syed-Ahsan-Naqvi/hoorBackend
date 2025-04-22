@@ -136,6 +136,60 @@ export class AuthService {
     }
   }
 
+  async adminLogin(data: any, request: any) {
+    try {
+      // Check if user exists
+
+      const user = await this.authRepository.findOne({
+        where: { email: data.email },
+      });
+
+      if (!user) {
+        return { success: false, message: "Invalid credentials" };
+      }
+
+      if (user.role !== "admin") {
+        return {
+          success: false,
+          message: "Access denied! Only admins can log in.",
+        };
+      }
+
+      // Generate JWT Token
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          password: user.password,
+          phone: user.phone,
+          role: user.role,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+
+      return {
+        success: true,
+        message: "Login successful",
+        data: {
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          },
+        },
+      };
+    } catch (error) {
+      console.error("Error in admin login:", error);
+      return { success: false, message: "Login failed", error: error.message };
+    }
+  }
+
   async login(data: LoginUserDto) {
     try {
       // Check if user exists
@@ -195,14 +249,6 @@ export class AuthService {
     const id = req?.user?.id;
 
     try {
-      // Check if requester is admin
-      // if (req.user?.role !== "admin") {
-      //   return {
-      //     success: false,
-      //     message: "Access denied! Only admins can delete users.",
-      //   };
-      // }
-
       // Check if user exists
       const user = await this.authRepository.findOne({ where: { id } });
 
@@ -232,11 +278,113 @@ export class AuthService {
       };
     }
   }
+  async adminDelete(req: any, data: any, id: any) {
+    try {
+      // Check if user exists
+      const user = await this.authRepository.findOne({ where: { id } });
+
+      if (!user) {
+        return { success: false, message: "User not found" };
+      }
+
+      // Delete user
+      await this.authRepository.delete(id);
+
+      return { success: true, message: "User deleted successfully" };
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      return {
+        success: false,
+        message: "Failed to delete user",
+        error: error.message,
+      };
+    }
+  }
 
   async updateUser(request: any, data: any) {
     console.log("Request:", request);
     console.log("Data:", data);
     const id = request?.user?.id;
+    try {
+      // Check if user exists
+      const user = await this.authRepository.findOne({ where: { id } });
+      if (!user) {
+        return { success: false, message: "User not found" };
+      }
+
+      // Ensure email and phone are unique if updating
+      if (data.email && data.email !== user.email) {
+        const emailExists = await this.authRepository.findOne({
+          where: { email: data.email },
+        });
+        if (emailExists) {
+          return { success: false, message: "Email already in use" };
+        }
+      }
+
+      if (data.phone && data.phone !== user.phone) {
+        const phoneExists = await this.authRepository.findOne({
+          where: { phone: data.phone },
+        });
+        if (phoneExists) {
+          return { success: false, message: "Phone already in use" };
+        }
+      }
+
+      // Keep existing password if not provided
+      let updatedPassword = user.password;
+      if (data.password) {
+        const salt = await bcrypt.genSalt(10);
+        updatedPassword = await bcrypt.hash(data.password, salt);
+      }
+
+      // Update user with existing values for missing fields
+      const updatedUser = {
+        name: data.name ?? user.name,
+        email: data.email ?? user.email,
+        password: updatedPassword,
+        phone: data.phone ?? user.phone,
+        role: data.role ?? user.role,
+      };
+
+      await this.authRepository.update(id, updatedUser);
+
+      // Fetch updated user from DB
+      const newUser = await this.authRepository.findOne({ where: { id } });
+
+      const token = jwt.sign(
+        {
+          id: newUser.id,
+          email: newUser.email,
+          name: newUser.name,
+          password: newUser.password,
+          phone: newUser.phone,
+          role: newUser.role,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+
+      return {
+        success: true,
+        message: "User updated successfully",
+        data: newUser,
+        token,
+      };
+    } catch (error) {
+      console.error("Error updating user:", error);
+      return {
+        success: false,
+        message: "Failed to update user",
+        error: error.message,
+      };
+    }
+  }
+
+  async adminUpdate(request: any, data: any, id: any) {
+    // const id = request?.user?.id;
     try {
       // Check if user exists
       const user = await this.authRepository.findOne({ where: { id } });

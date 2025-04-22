@@ -121,6 +121,49 @@ let AuthService = class AuthService {
             };
         }
     }
+    async adminLogin(data, request) {
+        try {
+            const user = await this.authRepository.findOne({
+                where: { email: data.email },
+            });
+            if (!user) {
+                return { success: false, message: "Invalid credentials" };
+            }
+            if (user.role !== "admin") {
+                return {
+                    success: false,
+                    message: "Access denied! Only admins can log in.",
+                };
+            }
+            const token = jwt.sign({
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                password: user.password,
+                phone: user.phone,
+                role: user.role,
+            }, JWT_SECRET, {
+                expiresIn: "1h",
+            });
+            return {
+                success: true,
+                message: "Login successful",
+                data: {
+                    token,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                    },
+                },
+            };
+        }
+        catch (error) {
+            console.error("Error in admin login:", error);
+            return { success: false, message: "Login failed", error: error.message };
+        }
+    }
     async login(data) {
         try {
             const user = await this.authRepository.findOne({
@@ -185,10 +228,90 @@ let AuthService = class AuthService {
             };
         }
     }
+    async adminDelete(req, data, id) {
+        try {
+            const user = await this.authRepository.findOne({ where: { id } });
+            if (!user) {
+                return { success: false, message: "User not found" };
+            }
+            await this.authRepository.delete(id);
+            return { success: true, message: "User deleted successfully" };
+        }
+        catch (error) {
+            console.error("Error deleting user:", error);
+            return {
+                success: false,
+                message: "Failed to delete user",
+                error: error.message,
+            };
+        }
+    }
     async updateUser(request, data) {
         console.log("Request:", request);
         console.log("Data:", data);
         const id = request?.user?.id;
+        try {
+            const user = await this.authRepository.findOne({ where: { id } });
+            if (!user) {
+                return { success: false, message: "User not found" };
+            }
+            if (data.email && data.email !== user.email) {
+                const emailExists = await this.authRepository.findOne({
+                    where: { email: data.email },
+                });
+                if (emailExists) {
+                    return { success: false, message: "Email already in use" };
+                }
+            }
+            if (data.phone && data.phone !== user.phone) {
+                const phoneExists = await this.authRepository.findOne({
+                    where: { phone: data.phone },
+                });
+                if (phoneExists) {
+                    return { success: false, message: "Phone already in use" };
+                }
+            }
+            let updatedPassword = user.password;
+            if (data.password) {
+                const salt = await bcrypt.genSalt(10);
+                updatedPassword = await bcrypt.hash(data.password, salt);
+            }
+            const updatedUser = {
+                name: data.name ?? user.name,
+                email: data.email ?? user.email,
+                password: updatedPassword,
+                phone: data.phone ?? user.phone,
+                role: data.role ?? user.role,
+            };
+            await this.authRepository.update(id, updatedUser);
+            const newUser = await this.authRepository.findOne({ where: { id } });
+            const token = jwt.sign({
+                id: newUser.id,
+                email: newUser.email,
+                name: newUser.name,
+                password: newUser.password,
+                phone: newUser.phone,
+                role: newUser.role,
+            }, JWT_SECRET, {
+                expiresIn: "1h",
+            });
+            return {
+                success: true,
+                message: "User updated successfully",
+                data: newUser,
+                token,
+            };
+        }
+        catch (error) {
+            console.error("Error updating user:", error);
+            return {
+                success: false,
+                message: "Failed to update user",
+                error: error.message,
+            };
+        }
+    }
+    async adminUpdate(request, data, id) {
         try {
             const user = await this.authRepository.findOne({ where: { id } });
             if (!user) {

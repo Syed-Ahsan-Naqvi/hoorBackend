@@ -32,8 +32,17 @@ let AuthController = class AuthController {
     async login(data) {
         return this.authService.login(data);
     }
+    async adminLogin(data, request) {
+        return this.authService.adminLogin(data, request);
+    }
+    async adminDelete(request, data, id) {
+        return this.authService.adminDelete(request, data, id);
+    }
     async deleteUser(request, data) {
         return this.authService.deleteUser(request, data);
+    }
+    async adminUpdate(request, data, id) {
+        return this.authService.adminUpdate(request, data, id);
     }
     async updateUser(request, data) {
         return this.authService.updateUser(request, data);
@@ -69,6 +78,23 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
+    (0, common_1.Post)("/admin-login"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.LoginUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "adminLogin", null);
+__decorate([
+    (0, common_1.Delete)("/admin-delete/:id"),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "adminDelete", null);
+__decorate([
     (0, common_1.Delete)("/deleteUser"),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
@@ -76,6 +102,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "deleteUser", null);
+__decorate([
+    (0, common_1.Put)("/admin-update/:id"),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "adminUpdate", null);
 __decorate([
     (0, common_1.Put)("/updateUser"),
     __param(0, (0, common_1.Req)()),

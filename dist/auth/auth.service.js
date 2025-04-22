@@ -279,7 +279,9 @@ let AuthService = class AuthService {
                 }
             }
             let updatedPassword = user.password;
-            if (data.password) {
+            if (data.password.length > 0 &&
+                data.password &&
+                data.password !== user.password) {
                 const salt = await bcrypt.genSalt(10);
                 updatedPassword = await bcrypt.hash(data.password, salt);
             }
@@ -341,7 +343,7 @@ let AuthService = class AuthService {
                 }
             }
             let updatedPassword = user.password;
-            if (data.password) {
+            if (data.password && data.password !== user.password) {
                 const salt = await bcrypt.genSalt(10);
                 updatedPassword = await bcrypt.hash(data.password, salt);
             }

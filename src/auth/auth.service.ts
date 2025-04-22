@@ -346,7 +346,12 @@ export class AuthService {
 
       // Keep existing password if not provided
       let updatedPassword = user.password;
-      if (data.password) {
+      if (
+        data.password.length > 0 &&
+        data.password &&
+        data.password !== user.password
+      ) {
+        // Only hash if password is new (not same as old hashed one)
         const salt = await bcrypt.genSalt(10);
         updatedPassword = await bcrypt.hash(data.password, salt);
       }
@@ -426,7 +431,8 @@ export class AuthService {
 
       // Keep existing password if not provided
       let updatedPassword = user.password;
-      if (data.password) {
+      if (data.password && data.password !== user.password) {
+        // Only hash if password is new (not same as old hashed one)
         const salt = await bcrypt.genSalt(10);
         updatedPassword = await bcrypt.hash(data.password, salt);
       }

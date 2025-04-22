@@ -137,6 +137,7 @@ export class AuthService {
   }
 
   async adminLogin(data: any, request: any) {
+    console.log(data.password);
     try {
       // Check if user exists
 
@@ -145,6 +146,17 @@ export class AuthService {
       });
 
       if (!user) {
+        return { success: false, message: "Invalid credentials" };
+      }
+
+      const isPasswordValid = await bcrypt.compare(
+        (data.password = String(data.password)),
+        user.password
+      );
+
+      console.log(isPasswordValid);
+      console.log(user.password);
+      if (!isPasswordValid) {
         return { success: false, message: "Invalid credentials" };
       }
 
@@ -203,9 +215,10 @@ export class AuthService {
 
       // Compare hashed password
       const isPasswordValid = await bcrypt.compare(
-        data.password,
+        (data.password = String(data.password)),
         user.password
       );
+
       if (!isPasswordValid) {
         return { success: false, message: "Invalid credentials" };
       }
@@ -257,7 +270,7 @@ export class AuthService {
       }
 
       const isPasswordValid = await bcrypt.compare(
-        data?.password,
+        (data.password = String(data.password)),
         user?.password
       );
 

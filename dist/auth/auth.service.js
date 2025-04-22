@@ -122,11 +122,18 @@ let AuthService = class AuthService {
         }
     }
     async adminLogin(data, request) {
+        console.log(data.password);
         try {
             const user = await this.authRepository.findOne({
                 where: { email: data.email },
             });
             if (!user) {
+                return { success: false, message: "Invalid credentials" };
+            }
+            const isPasswordValid = await bcrypt.compare((data.password = String(data.password)), user.password);
+            console.log(isPasswordValid);
+            console.log(user.password);
+            if (!isPasswordValid) {
                 return { success: false, message: "Invalid credentials" };
             }
             if (user.role !== "admin") {
@@ -172,7 +179,7 @@ let AuthService = class AuthService {
             if (!user) {
                 return { success: false, message: "Invalid credentials" };
             }
-            const isPasswordValid = await bcrypt.compare(data.password, user.password);
+            const isPasswordValid = await bcrypt.compare((data.password = String(data.password)), user.password);
             if (!isPasswordValid) {
                 return { success: false, message: "Invalid credentials" };
             }
@@ -212,7 +219,7 @@ let AuthService = class AuthService {
             if (!user) {
                 return { success: false, message: "User not found" };
             }
-            const isPasswordValid = await bcrypt.compare(data?.password, user?.password);
+            const isPasswordValid = await bcrypt.compare((data.password = String(data.password)), user?.password);
             if (isPasswordValid === false) {
                 return { success: false, message: "Invalid Password" };
             }
